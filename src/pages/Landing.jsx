@@ -1,21 +1,12 @@
-import { Await, defer, useLoaderData } from "react-router-dom";
-import { Hero, FeaturedProducts } from "../components";
-import { customFetch } from "../utils";
+import React from 'react';
+import Navbar from '../components/Navbar';
 
-export async function loader() {
-  const response = customFetch("/products?featured=true");
-
-  return defer({
-    featuredProducts: response,
-  });
-}
-
-export default function Landing() {
-
+const Landing = () => {
   return (
     <>
-      <Hero />
-      <FeaturedProducts />
+      <Navbar />
     </>
   );
-}
+};
+
+export default Landing;

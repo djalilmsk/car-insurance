@@ -1,10 +1,18 @@
-import React from "react";
+import React from 'react';
+import NavLinks from './NavLinks';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <div className="p-[10px] sm:py-[50px] sm:px-[100px]">
+    <div className="p-[10px] sm:px-[100px] sm:py-[50px]">
       <div className="navbar bg-base-100">
         <div className="navbar-start">
+          <NavLink
+            to="/"
+            className="btn btn-primary hidden items-center text-3xl lg:flex"
+          >
+            C
+          </NavLink>
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
@@ -24,54 +32,19 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
             >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
+              <NavLinks />
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <details>
-                <summary>Parent</summary>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+            <NavLinks />
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <a className="btn"></a>
         </div>
       </div>
     </div>

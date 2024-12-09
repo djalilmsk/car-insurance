@@ -1,17 +1,12 @@
-import { Outlet } from "react-router-dom";
-import { Footer, Header, NavBar } from "../components";
+import React from 'react';
+import Navbar from '../components/Navbar';
 
-function HomeLayout() {
+const HomeLayout = () => {
   return (
-    <nav className="relative pb-10">
-      <Header />
-      <NavBar />
-      <section className="align-element py-20">
-        <Outlet />
-      </section>
-      {/* <Footer /> */}
-    </nav>
+    <div>
+      <Navbar />
+    </div>
   );
-}
+};
 
 export default HomeLayout;
