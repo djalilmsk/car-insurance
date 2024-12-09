@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import {
   About,
+  Companies,
   Error,
   HomeLayout,
   Landing,
@@ -27,10 +28,13 @@ const router = createBrowserRouter([
         element: <Services />,
         errorElement: <ErrorElement />,
       },
-
       {
         path: 'about',
         element: <About />,
+      },
+      {
+        path: 'companies',
+        element: <Companies />,
       },
     ],
   },
