@@ -1,9 +1,7 @@
-function ErrorElement() {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+import React from 'react';
 
-export default ErrorElement
+const ErrorElement = () => {
+  return <div>ErrorElement</div>;
+};
+
+export default ErrorElement;

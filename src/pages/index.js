@@ -4,5 +4,4 @@ export { default as HomeLayout } from './HomeLayout';
 export { default as Landing } from './Landing';
 export { default as Register } from './Register';
 export { default as Login } from './Login';
-export { default as OurServices } from './OurServices';
-export { default as WhyUS } from './WhyUS';
+export { default as Services } from './Services';

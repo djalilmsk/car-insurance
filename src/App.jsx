@@ -8,11 +8,9 @@ import {
   Login,
   Register,
   Services,
-  WhyUS,
 } from './pages';
 
-import { ErrorElement } from './components';
-
+import { ErrorElement } from './error';
 const router = createBrowserRouter([
   {
     path: '/',

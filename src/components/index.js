@@ -1,2 +1,1 @@
-export { default as ErrorElement } from './ErrorElement';
-export { default as Navar } from './Navbar';
+export { default as Navbar } from './Navbar';
