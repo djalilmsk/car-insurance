@@ -6,3 +6,4 @@ export { default as Register } from './Register';
 export { default as Login } from './Login';
 export { default as Services } from './Services';
 export { default as Companies } from './Companies';
+export { default as HelpPage } from './HelpPage';

@@ -4,14 +4,10 @@ const NAV_LINKS = [
   { id: 1, to: '/companies', label: 'Companies' },
   { id: 2, to: '/about', label: 'About' },
   { id: 3, to: '/services', label: 'Services' },
-  // { id: 4, to: '/?', label: '?' },
+  { id: 4, to: '/helpPage', label: 'Help' },
 ];
 
-function NavLinks({
-  listClasses = '',
-  oneClasses = '',
-  children,
-}) {
+function NavLinks({ listClasses = '', oneClasses = '', children }) {
   const closeDrawer = () => {
     const drawerCheckbox = document.getElementById('my-drawer');
     if (drawerCheckbox) {

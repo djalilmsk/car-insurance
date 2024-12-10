@@ -1,16 +1,17 @@
 import React from 'react';
 import { Navbar } from '../components';
 import { Outlet } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const HomeLayout = () => {
   return (
-    <nav className="relative pb-10">
+    <div className="relative">
       <Navbar />
       <section className="align-element py-10">
         <Outlet />
       </section>
-      {/* <Footer /> */}
-    </nav>
+      <Footer />
+    </div>
   );
 };
 
