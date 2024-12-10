@@ -4,6 +4,7 @@ import {
   About,
   Companies,
   Error,
+  HelpPage,
   HomeLayout,
   Landing,
   Login,
@@ -31,10 +32,17 @@ const router = createBrowserRouter([
       {
         path: 'about',
         element: <About />,
+        errorElement: <ErrorElement />,
       },
       {
         path: 'companies',
         element: <Companies />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: 'helpPage',
+        element: <HelpPage />,
+        errorElement: <ErrorElement />,
       },
     ],
   },
