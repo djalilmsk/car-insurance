@@ -97,8 +97,8 @@ const HelpPage = () => {
                 <motion.button
                   key={idx}
                   onClick={() => setSelectedCategory(category)}
-                  whileHover={{ scale: 1.05 }}
-                  className="category-card rounded-lg border border-gray-200 p-4 text-center hover:shadow-lg"
+
+                  className="category-card rounded-lg border border-gray-200 p-4 text-center hover:shadow-sm hover:bg-[#e8e8e8] duration-300 transition-all"
                 >
                   <h2 className="text-lg font-semibold">{category.category}</h2>
                 </motion.button>

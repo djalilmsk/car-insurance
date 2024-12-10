@@ -7,3 +7,4 @@ export { default as Login } from './Login';
 export { default as Services } from './Services';
 export { default as Companies } from './Companies';
 export { default as HelpPage } from './HelpPage';
+export { default as InsurerPage } from './InsurerPage';

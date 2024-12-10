@@ -10,6 +10,7 @@ import {
   Login,
   Register,
   Services,
+  InsurerPage
 } from './pages';
 
 import { ErrorElement } from './error';
@@ -42,6 +43,11 @@ const router = createBrowserRouter([
       {
         path: 'helpPage',
         element: <HelpPage />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: 'insurerPage',
+        element: <InsurerPage />,
         errorElement: <ErrorElement />,
       },
     ],

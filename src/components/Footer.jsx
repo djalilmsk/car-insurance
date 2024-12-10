@@ -4,7 +4,7 @@ import NavLinks from './navbar/NavLinks';
 function Footer() {
   return (
     <footer className="px-10 bg-secondary py-4 text-gray-800">
-      <div className="container mx-auto px-4 md:px-8">
+      <div className="container flex justify-between mx-auto px-4 md:px-8">
         {/* Navigation Links */}
         <div className="mb-6">
           <h2 className="mb-4 text-lg font-semibold">Quick Links</h2>
