@@ -1,6 +1,9 @@
-function Button({ children }) {
+function Button({ children, className, clickHandle = null }) {
   return (
-    <button className="hover:bg-primary px-5 py-2 flex items-center gap-2 bg-secondary rounded-full text-primary hover:text-secondary transition-all duration-300">
+    <button
+      onClick={clickHandle === null ? '': clickHandle}
+      className={`flex items-center rounded-full bg-secondary px-5 py-2 text-primary transition-all duration-300 hover:bg-primary hover:text-secondary ${className}`}
+    >
       {children}
     </button>
   );

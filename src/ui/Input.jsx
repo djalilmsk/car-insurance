@@ -9,7 +9,7 @@ function Input({
     <input
       type={Type}
       placeholder={Placeholder}
-      className={`${ClassName} input bg-base-300 focus:ring-1 focus:ring-primary`}
+      className={`${ClassName} input focus:outline-none focus:ring-1 focus:ring-primary bg-[#e8e8e8]`}
       name={Name}
       defaultValue={defaultValue}
       required

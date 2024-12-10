@@ -58,27 +58,10 @@ function Login() {
               <p className="text-sm md:text-base">Remember me</p>
             </div>
 
-            <SubmitButton ClassName="hover:bg-primary-focus btn w-full bg-primary text-[#eee] hover:text-primary">
+            <SubmitButton ClassName="flex justify-center">
               Login
             </SubmitButton>
           </Form>
-
-          <div className="flex items-center justify-center space-x-2 text-sm">
-            <div className="h-[1px] w-[30%] bg-gray-600 md:w-[39%]"></div>
-            <span>Or Login with</span>
-            <div className="h-[1px] w-[30%] bg-gray-600 md:w-[39%]"></div>
-          </div>
-
-          <div className="flex flex-col space-y-4 md:space-y-5">
-            <button className="btn btn-outline">
-              {/* <FaGoogle /> */}
-              <span>Google</span>
-            </button>
-            <button className="btn btn-outline">
-              {/* <FaUser /> */}
-              <span>Continue As Guest</span>
-            </button>
-          </div>
         </div>
       </div>
     </div>

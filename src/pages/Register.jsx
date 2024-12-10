@@ -1,17 +1,43 @@
 import React, { useState } from 'react';
 import { Logo } from '../components';
 import { Form, Link } from 'react-router-dom';
-import { EyeToggle, SubmitButton, Input } from '../ui';
+import { EyeToggle, SubmitButton, Input, Button, ButtonOutline } from '../ui';
+
+const INPUTS = [
+  { page: 1, name: 'fullName', Placeholder: 'Full name', type: 'text' },
+  { page: 1, name: 'address', Placeholder: 'Physical address', type: 'text' },
+  { page: 1, name: 'email', Placeholder: 'Email', type: 'email' },
+  { page: 1, name: 'phone', Placeholder: 'Phone', type: 'tel' },
+  { page: 2, name: 'phone', Placeholder: 'Phone', type: 'tel' },
+  { page: 2, name: 'phone', Placeholder: 'Phone', type: 'tel' },
+  {
+    page: 3,
+    name: 'postalAddress',
+    Placeholder: 'Postal Address',
+    type: 'number',
+  },
+  { page: 3, name: 'phone', Placeholder: 'Phone', type: 'tel' },
+  { page: 4, name: 'RIB', Placeholder: 'RIB', type: 'number' },
+  { page: 4, name: 'password', Placeholder: 'Password', type: 'password' },
+  {
+    page: 4,
+    name: 'confirmPassword',
+    Placeholder: 'Confirm Password',
+    type: 'password',
+  },
+];
 
 const Register = () => {
-  const [visiblePassword, setVisiblePassword] = useState(false);
-  const [visibleConfPassword, setVisibleConfPassword] = useState(false);
+  const [pageCounter, setPageCounter] = useState(1);
 
-  const handleVisible = () => {
-    setVisiblePassword(!visiblePassword);
+  const [formData, setFormData] = useState({});
+
+  const handleNextPage = () => {
+    if (pageCounter < 4) setPageCounter(pageCounter + 1);
   };
-  const handleVisibleConf = () => {
-    setVisibleConfPassword(!visibleConfPassword);
+
+  const handlePrevPage = () => {
+    if (pageCounter > 1) setPageCounter(pageCounter - 1);
   };
   return (
     <div className="relative">
@@ -38,50 +64,24 @@ const Register = () => {
             onSubmit={() => ''}
             className="flex w-full flex-col space-y-4"
           >
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <Input
-                Placeholder="First name"
-                ClassName="w-full"
-                Name="firstName"
-              />
-              <Input
-                Placeholder="Last name"
-                ClassName="w-full"
-                Name="lastName"
-              />
-            </div>
+            {INPUTS.map(({ page, name, Placeholder, type }, i) => {
+              return (
+                <Input
+                  key={i}
+                  Placeholder={Placeholder}
+                  Type={type}
+                  ClassName={`w-full ${page !== pageCounter ? 'hidden' : ''}`}
+                  Name={name}
+                />
+              );
+            })}
 
-            <Input
-              Placeholder="Email"
-              Type="email"
-              ClassName="w-full"
-              Name="email"
-            />
-
-            <div className="relative">
-              <EyeToggle handelFunc={handleVisible} state={visiblePassword} />
-              <Input
-                Placeholder="Enter your password"
-                Type={`${visiblePassword ? 'text' : 'password'}`}
-                ClassName="w-full"
-                Name="password"
+            <div className="flex items-center space-x-3">
+              <input
+                type="checkbox"
+                defaultChecked
+                className="checkbox h-4 w-4"
               />
-            </div>
-            <div className="relative">
-              <EyeToggle
-                handelFunc={handleVisibleConf}
-                state={visibleConfPassword}
-              />
-              <Input
-                Placeholder="Confirm password"
-                Type={`${visibleConfPassword ? 'text' : 'password'}`}
-                ClassName="w-full"
-                Name="Confirm password"
-              />
-            </div>
-
-            <div className="flex items-start space-x-3">
-              <input type="checkbox" defaultChecked className="checkbox" />
               <p className="text-sm md:text-base">
                 I agree to the{' '}
                 <span className="text-primary underline">
@@ -90,27 +90,28 @@ const Register = () => {
               </p>
             </div>
 
-            <SubmitButton ClassName="hover:bg-primary-focus btn w-full bg-primary text-[#eee]  hover:text-primary">
-              Create account
-            </SubmitButton>
+            {pageCounter === 4 && (
+              <SubmitButton ClassName="flex justify-center w-full">
+                Create account
+              </SubmitButton>
+            )}
           </Form>
-
-          <div className="flex items-center justify-center space-x-2 text-sm">
-            <div className="h-[1px] w-[25%] bg-gray-600 md:w-[39%]"></div>
-            <span>Or register with</span>
-            <div className="h-[1px] w-[25%] bg-gray-600 md:w-[39%]"></div>
-          </div>
-
-          <div className="flex flex-col space-y-4 md:space-y-5">
-            <button className="btn btn-outline">
-              {/* <FaGoogle /> */}
-              <span>Google</span>
-            </button>
-            <button className="btn btn-outline">
-              {/* <FaUser /> */}
-              <span>Continue As Guest</span>
-            </button>
-          </div>
+          {pageCounter !== 4 && (
+            <div className="flex gap-2">
+              <ButtonOutline
+                className={`flex w-full justify-center ${pageCounter === 1 && 'btn-disabled text-[#e8e8e8]'}`}
+                clickHandle={handlePrevPage}
+              >
+                Previous
+              </ButtonOutline>
+              <Button
+                className="flex w-full justify-center"
+                clickHandle={handleNextPage}
+              >
+                Next
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
