@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 
 const HomeLayout = () => {
   return (
-    <div className="relative">
+    <div className="relative flex flex-col">
       <Navbar />
       <section className="align-element py-10">
         <Outlet />
