@@ -6,7 +6,7 @@ const HomeLayout = () => {
   return (
     <nav className="relative pb-10">
       <Navbar />
-      <section className="align-element py-20">
+      <section className="align-element py-10">
         <Outlet />
       </section>
       {/* <Footer /> */}
