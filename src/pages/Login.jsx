@@ -2,10 +2,24 @@ import { Link, Form } from 'react-router-dom';
 import { Logo } from '../components';
 import { SubmitButton, Input, EyeToggle } from '../ui';
 import { useState } from 'react';
+import { customFetch } from '../utils';
+import { useDispatch } from 'react-redux';
 
-export const action = (store) => async () => {
-  console.log(store);
-  return null;
+export const action = (store) => {
+  async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    console.log(data);
+
+    try {
+      const response = await customFetch.post('/users/login', data);
+    } catch (error) {
+      const errorMessage =
+        error?.response?.data?.error?.message ||
+        'Please double-check your credentials';
+      return { error: errorMessage };
+    }
+  };
 };
 
 function Login() {
@@ -31,10 +45,31 @@ function Login() {
                 className="text-primary underline hover:cursor-pointer"
               >
                 Register
-              </Link>
+              </Link> 
             </p>
           </div>
-
+          {/* {actionData?.error && (
+            <div
+              className="mb-4 flex items-center rounded border border-red-300 bg-red-100 p-3 text-sm text-red-800"
+              role="alert"
+            >
+              <svg
+                className="mr-2 h-5 w-5 flex-shrink-0 text-red-600"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M18.364 5.636l-12.728 12.728M5.636 5.636l12.728 12.728"
+                />
+              </svg>
+              {actionData.error}
+            </div>
+          )} */}
           <Form method="POST" className="flex w-full flex-col space-y-4">
             <Input
               Placeholder="Email"
@@ -58,9 +93,7 @@ function Login() {
               <p className="text-sm md:text-base">Remember me</p>
             </div>
 
-            <SubmitButton ClassName="flex justify-center">
-              Login
-            </SubmitButton>
+            <SubmitButton ClassName="flex justify-center">Login</SubmitButton>
           </Form>
         </div>
       </div>

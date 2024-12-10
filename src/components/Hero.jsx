@@ -7,7 +7,7 @@ function Hero() {
   return (
     <div className="flex flex-wrap justify-center gap-16 lg:flex-nowrap mb-28">
       {/* Text Content */}
-      <div className="lg:pl-32 flex flex-col items-center justify-center gap-6 sm:gap-8 lg:w-1/2 lg:items-start">
+      <div className="flex flex-col items-center justify-center gap-6 sm:gap-8 lg:w-1/2 lg:items-start">
         <h1 className='text-6xl text-extrabold max-lg:text-center'>Ride with Confidence</h1>
         <p className="text-center text-sm sm:text-lg lg:text-left">
           We know how large objects will act, but things on a small scale just

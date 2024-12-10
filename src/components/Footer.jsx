@@ -16,7 +16,7 @@ function Footer() {
 
         <div className="flex flex-col items-start md:flex-row md:items-center md:justify-between">
           {/* Social Media */}
-          <div className="mb-6 md:mb-0">
+          <div className="mb-6 md:mb-0 mx-6">
             <h2 className="mb-4 text-lg font-semibold">Follow Us</h2>
             <div className="flex space-x-4">
               <a
