@@ -46,7 +46,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path: 'insurerPage',
+        path: 'companies/insurerPage/:id',
         element: <InsurerPage />,
         errorElement: <ErrorElement />,
       },

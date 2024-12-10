@@ -1,10 +1,11 @@
+import React, { useState } from 'react';
 import { FaUsers } from 'react-icons/fa';
 import { PricingCard } from '../components';
 import { SiTheboringcompany } from 'react-icons/si';
 import { GoPlusCircle } from 'react-icons/go';
 import { Button } from '../ui';
 
-const INFOS = [
+const INITIAL_INFOS = [
   {
     name: 'Basic Plan',
     description: 'Covers basic damages and liability.',
@@ -41,7 +42,114 @@ const INFOS = [
   },
 ];
 
+function Field(props) {
+  return (
+    <form onSubmit={props.handleFormSubmit} className="mb-6 rounded-2xl border p-4 shadow">
+      <div className="grid gap-4">
+        <input
+          type="text"
+          name="name"
+          placeholder="Plan Name"
+          value={props.newPlan.name}
+          onChange={props.handleFormChange}
+          className="rounded-lg border p-2 focus:ring-2 focus:ring-primary focus:outline-none"
+          required
+        />
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={props.newPlan.description}
+          onChange={props.handleFormChange}
+          className="rounded-lg border p-2 focus:ring-2 focus:ring-primary focus:outline-none"
+          required
+        />
+        <input
+          type="text"
+          name="coverage"
+          placeholder="Coverage (comma-separated)"
+          value={props.newPlan.coverage}
+          onChange={props.handleFormChange}
+          className="rounded-lg border p-2 focus:ring-2 focus:ring-primary focus:outline-none"
+          required
+        />
+        <input
+          type="number"
+          name="price"
+          placeholder="Price"
+          value={props.newPlan.price}
+          onChange={props.handleFormChange}
+          className="rounded-lg border p-2 focus:ring-2 focus:ring-primary focus:outline-none"
+          required
+        />
+        <input
+          type="number"
+          name="deductible"
+          placeholder="Deductible"
+          value={props.newPlan.deductible}
+          onChange={props.handleFormChange}
+          className="rounded-lg border p-2 focus:ring-2 focus:ring-primary focus:outline-none"
+          required
+        />
+        <textarea
+          name="terms"
+          placeholder="Terms"
+          value={props.newPlan.terms}
+          onChange={props.handleFormChange}
+          className="rounded-lg border p-2 focus:ring-1 focus:ring-primary focus:outline-none"
+          required
+        />
+
+        <Button
+          type="submit"
+          className={'flex justify-center items-center'}
+        >
+          Add Plan
+        </Button>
+      </div>
+    </form>
+  );
+}
+
 function InsurerPage() {
+  const [infos, setInfos] = useState(INITIAL_INFOS);
+  const [showForm, setShowForm] = useState(false);
+  const [newPlan, setNewPlan] = useState({
+    name: '',
+    description: '',
+    coverage: '',
+    price: '',
+    deductible: '',
+    terms: '',
+    isActive: true,
+  });
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setNewPlan({ ...newPlan, [name]: value });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // Convert coverage to an array (split by commas)
+    const updatedPlan = {
+      ...newPlan,
+      coverage: newPlan.coverage.split(',').map((item) => item.trim()),
+      price: parseFloat(newPlan.price),
+      deductible: parseFloat(newPlan.deductible),
+    };
+    setInfos([...infos, updatedPlan]);
+    setShowForm(false);
+    setNewPlan({
+      name: '',
+      description: '',
+      coverage: '',
+      price: '',
+      deductible: '',
+      terms: '',
+      isActive: true,
+    });
+  };
+
   return (
     <div className="p-4">
       <div className="mb-10 flex flex-wrap justify-between gap-6">
@@ -58,23 +166,34 @@ function InsurerPage() {
         </div>
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center rounded-xl bg-[#e8e8e8] px-4 py-2">
-            <div className='flex items-center gap-3 pr-4 border-r-2 border-[#787878]'>
+            <div className="flex items-center gap-3 border-r-2 border-[#787878] pr-4">
               <FaUsers className="h-6 w-6 text-[#787878]" />
               <div className="flex flex-col items-start">
                 <span className="text-lg font-semibold">174</span>
                 <span className="text-sm text-[#787878]">Subscription</span>
               </div>
             </div>
-            {/* <span className='text-4xl text-[#787878] pb-2'>|</span> */}
-            <button className='flex items-center gap-3 py-5 pl-3 hover:text-[#787878] transition-all duration-300 max-sm:px-4'>
-              <GoPlusCircle className="h-6 w-6 text-[#787878] " />
-              <span className='max-sm:hidden'>Add New Plan</span>
+            <button
+              className="flex items-center gap-3 py-5 pl-3 transition-all duration-300 hover:text-[#787878] max-sm:px-4"
+              onClick={() => setShowForm(!showForm)}
+            >
+              <GoPlusCircle className={`h-6 w-6 text-[#787878] ${showForm ? 'rotate-45 transition-all duration-300': ''}`} />
+              <span className="max-sm:hidden">
+                {showForm ? 'Close Form' : 'Add New Plan'}
+              </span>
             </button>
           </div>
         </div>
       </div>
+      {showForm && (
+        <Field
+          newPlan={newPlan}
+          handleFormChange={handleFormChange}
+          handleFormSubmit={handleFormSubmit}
+        ></Field>
+      )}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {INFOS.map(
+        {infos.map(
           (
             { name, description, coverage, price, deductible, terms, isActive },
             i,
