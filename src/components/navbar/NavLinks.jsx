@@ -4,7 +4,7 @@ const NAV_LINKS = [
   { id: 1, to: '/companies', label: 'Companies' },
   { id: 2, to: '/about', label: 'About' },
   { id: 3, to: '/services', label: 'Services' },
-  { id: 4, to: '/?', label: '?' },
+  // { id: 4, to: '/?', label: '?' },
 ];
 
 function NavLinks({
