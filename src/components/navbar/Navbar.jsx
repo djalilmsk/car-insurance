@@ -9,10 +9,9 @@ import { FaUserCircle } from 'react-icons/fa';
 import RoleChoose from '../RoleChoose';
 
 function NavBar() {
-  const [showRoleChoose, setShowRoleChoose] = useState(false); // State for RoleChoose visibility
+  const [showRoleChoose, setShowRoleChoose] = useState(false);
   const dispatch = useDispatch();
   const userObject = useSelector((state) => state.userReducer);
-  console.log(userObject);
   const { data, token } = userObject.user || { data: null, token: null };
 
   const handleLogout = () => {
@@ -20,11 +19,11 @@ function NavBar() {
   };
 
   const handleSignUpClick = () => {
-    setShowRoleChoose(true); // Show RoleChoose when Sign Up is clicked
+    setShowRoleChoose(true);
   };
 
   const closeRoleChoose = () => {
-    setShowRoleChoose(false); // Close RoleChoose
+    setShowRoleChoose(false);
   };
 
   return (
@@ -47,7 +46,7 @@ function NavBar() {
           {token === null ? (
             <>
               <button
-                onClick={handleSignUpClick} // Open RoleChoose on Sign Up click
+                onClick={handleSignUpClick}
                 className="px-4 py-[.4rem] border-2 rounded-full border-[#e8e8e8] text-[#787878]hover:border-[#e8e8e8]  hover:bg-[#e8e8e8] transition-all duration-300"
               >
                 Sign up

@@ -5,9 +5,9 @@ import { EyeToggle, SubmitButton, Input, Button, ButtonOutline } from '../ui';
 import { loginUser } from '../features/user/UserSlice';
 import customFetch from '../utils';
 
-const [searchParams] = useSearchParams();
-const role = searchParams.get('role') || 'users';
-const URL = `/${role}/signup`;
+// const [searchParams] = useSearchParams();
+// const role = searchParams.get('role') || 'users';
+const URL = `/${'users'}/signup`;
 
 const INPUTS = [
   { page: 1, name: 'fullName', Placeholder: 'Full name', type: 'text' },
