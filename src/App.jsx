@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-
+import { useState } from 'react';
 import {
   About,
   Companies,
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
     path: 'login',
     element: <Login />,
     errorElement: <Error />,
-    action: loginAction(state),
+    action: loginAction(),
   },
   {
     path: 'register',
