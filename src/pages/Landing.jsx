@@ -2,6 +2,7 @@ import React from 'react';
 import { Hero, PricingCard } from '../components';
 import About from './About';
 import Services from './Services';
+import Dashboard from '../components/DashBoards/User/DashBoard';
 
 const Landing = () => {
   return (

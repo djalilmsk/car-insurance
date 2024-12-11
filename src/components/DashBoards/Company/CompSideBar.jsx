@@ -1,14 +1,12 @@
 import { useState } from 'react';
 
-export default function Sidebar({ onSelect }) {
+export default function CompSidebar({ onSelect }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const menuItems = [
-    { id: 'userInfo', label: 'Your information' },
-
-    { id: 'updateInfo', label: 'Update your information' },
-    { id: 'purchaseHistory', label: 'Your Purchases  ' },
-    { id: 'ClaimsHistory', label: 'Your Claims' },
+    { id: 'Compony information', label: 'Company Information' },
+    { id: 'Plans', label: 'Company Plans' },
+    { id: 'Manage client claims', label: 'Send a Client Claim to an Expert' },
   ];
 
   const handleItemClick = (id) => {

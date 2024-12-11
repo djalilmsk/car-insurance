@@ -28,7 +28,7 @@ function NavBar() {
   };
 
   return (
-    <nav className="bg-white shadow-md relative">
+    <nav className="relative z-20 bg-white shadow-md">
       <div className="sm:align-element navbar">
         <div className="navbar-start">
           <label
@@ -48,7 +48,7 @@ function NavBar() {
             <>
               <button
                 onClick={handleSignUpClick} // Open RoleChoose on Sign Up click
-                className="px-4 py-[.4rem] border-2 rounded-full border-[#e8e8e8] text-[#787878]hover:border-[#e8e8e8]  hover:bg-[#e8e8e8] transition-all duration-300"
+                className="text-[#787878]hover:border-[#e8e8e8] rounded-full border-2 border-[#e8e8e8] px-4 py-[.4rem] transition-all duration-300 hover:bg-[#e8e8e8]"
               >
                 Sign up
               </button>
@@ -85,10 +85,13 @@ function NavBar() {
         </NavLinks>
       </div>
 
-      {showRoleChoose && ( 
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
+      {showRoleChoose && (
+        <div className="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative">
-            <RoleChoose onClick={closeRoleChoose} className="bg-white p-6 rounded-xl shadow-lg" />
+            <RoleChoose
+              onClick={closeRoleChoose}
+              className="rounded-xl bg-white p-6 shadow-lg"
+            />
           </div>
         </div>
       )}

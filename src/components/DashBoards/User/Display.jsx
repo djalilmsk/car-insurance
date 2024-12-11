@@ -1,19 +1,24 @@
 export default function UserInfo({ user }) {
   return (
-    <div className="rounded bg-white p-6 shadow-md">
-      <h2 className="mb-4 text-lg font-bold">User Information</h2>
-      <p>
-        <strong>Name:</strong> {user.name}
-      </p>
-      <p>
-        <strong>Last Name:</strong> {user.lastName}
-      </p>
-      <p>
-        <strong>Phone:</strong> {user.phone}
-      </p>
-      <p>
-        <strong>Email:</strong> {user.email}
-      </p>
+    <div className="rounded-lg bg-white p-4 shadow-md sm:w-[800px]">
+      <h2 className="mb-4 text-xl font-bold text-primary md:text-2xl">
+        Your Information :
+      </h2>
+      <div className="space-y-4">
+        <div>
+          <span className="font-medium text-primary">Name:</span> {user.name}
+        </div>
+        <div>
+          <span className="font-medium text-primary">Last Name:</span>{' '}
+          {user.lastName}
+        </div>
+        <div>
+          <span className="font-medium text-primary">Phone:</span> {user.phone}
+        </div>
+        <div>
+          <span className="font-medium text-primary">Email:</span> {user.email}
+        </div>
+      </div>
     </div>
   );
 }

@@ -5,7 +5,7 @@ const NAV_LINKS = [
   { id: 2, to: '/about', label: 'About' },
   { id: 3, to: '/services', label: 'Services' },
   { id: 4, to: '/helpPage', label: 'Help' },
-  // { id: 5, to: '/insurerPage', label: 'insurerPage' },
+  { id: 5, to: '/dashboard', label: 'dashboard' },
 ];
 
 function NavLinks({ listClasses = '', oneClasses = '', children }) {

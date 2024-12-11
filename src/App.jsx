@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { useState } from 'react';
+
 import {
   About,
   Companies,
@@ -18,6 +19,7 @@ import { action as registerAction } from './pages/Register';
 import { insurance } from './insurance';
 
 import { ErrorElement } from './error';
+import Dashboard from './components/DashBoards/User/DashBoard';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -32,6 +34,11 @@ const router = createBrowserRouter([
       {
         path: 'services',
         element: <Services />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: 'dashboard',
+        element: <Dashboard />,
         errorElement: <ErrorElement />,
       },
       {
