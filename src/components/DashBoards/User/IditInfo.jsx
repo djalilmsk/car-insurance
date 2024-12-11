@@ -18,14 +18,16 @@ export default function UserEditForm({ onUpdate }) {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  // Fetch user data on component mount
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         setIsLoading(true);
-        const response = await customFetch.get('/users/updateme', {
-          headers: { Authorization: `Bearer ${token}` },
+        // Use GET method to fetch user data
+        const response = await customFetch.get('/users/me', {
+          headers: { Authorization: `Bearer ${token}` }, // Authorization header
         });
+
+        // Set form data with the fetched user data
         setFormData((prev) => ({
           ...prev,
           ...response.data,
@@ -40,26 +42,28 @@ export default function UserEditForm({ onUpdate }) {
     if (token) fetchUserData();
   }, [token]);
 
-  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Exclude empty password field
     const submissionData = { ...formData };
+    // Remove the password field if it is empty
     if (!submissionData.password) {
       delete submissionData.password;
     }
 
     try {
-      const response = await customFetch.patch('/users/updateme', submissionData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await customFetch.patch(
+        '/users/updateme',
+        submissionData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
       console.log('User updated successfully:', response.data);
       if (onUpdate) onUpdate(response.data);
     } catch (error) {

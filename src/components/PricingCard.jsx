@@ -16,7 +16,7 @@ function PricingCard({
 }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer.user);
-  const { role } = user.data;
+  const { role } = user?.data || { role: 'user' };
 
   const [isActive, setIsActive] = useState(true);
 
@@ -56,7 +56,7 @@ function PricingCard({
           </div>
           {role !== 'insurer' ? (
             <Button
-            clickHandle={manageBuyPlan}
+              clickHandle={manageBuyPlan}
               className={`flex w-full justify-center ${buttonClasses}`}
             >
               {buttonText}
