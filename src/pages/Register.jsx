@@ -2,43 +2,84 @@ import React, { useState } from 'react';
 import { Logo } from '../components';
 import { Form, Link } from 'react-router-dom';
 import { EyeToggle, SubmitButton, Input, Button, ButtonOutline } from '../ui';
+import { loginUser } from '../features/user/UserSlice';
+import { insurance } from '../insurance';
 
 const INPUTS = [
   { page: 1, name: 'fullName', Placeholder: 'Full name', type: 'text' },
   { page: 1, name: 'address', Placeholder: 'Physical address', type: 'text' },
   { page: 1, name: 'email', Placeholder: 'Email', type: 'email' },
   { page: 1, name: 'phone', Placeholder: 'Phone', type: 'tel' },
-  { page: 2, name: 'phone', Placeholder: 'Phone', type: 'tel' },
-  { page: 2, name: 'phone', Placeholder: 'Phone', type: 'tel' },
-  {
-    page: 3,
-    name: 'postalAddress',
-    Placeholder: 'Postal Address',
-    type: 'number',
-  },
-  { page: 3, name: 'phone', Placeholder: 'Phone', type: 'tel' },
-  { page: 4, name: 'RIB', Placeholder: 'RIB', type: 'number' },
-  { page: 4, name: 'password', Placeholder: 'Password', type: 'password' },
-  {
-    page: 4,
-    name: 'confirmPassword',
-    Placeholder: 'Confirm Password',
-    type: 'password',
-  },
+  { page: 2, name: 'meterReading', Placeholder: 'Meter reading', type: 'number' },
+  { page: 2, name: 'PDL_PCE', Placeholder: 'PCE / PDL', type: 'number' },
+  { page: 2, name: 'type', Placeholder: 'Housing Type (e.g., apartment)', type: 'text' },
+  { page: 2, name: 'area', Placeholder: 'Housing Area', type: 'number' },
+  { page: 3, name: 'postalAddress', Placeholder: 'Postal Address', type: 'text' },
+  { page: 3, name: 'RIB', Placeholder: 'RIB', type: 'text' },
+  { page: 3, name: 'password', Placeholder: 'Password', type: 'password' },
+  { page: 3, name: 'confirmPassword', Placeholder: 'Confirm Password', type: 'password' },
 ];
+
+const action = (insurance) => {
+  return async ({ request }) => {
+    try {
+      const formData = await request.formData();
+      const data = Object.fromEntries(formData);
+
+      if (data.password !== data.confirmPassword) {
+        console.error('Passwords do not match');
+        return null;
+      }
+
+      const response = await customFetch.post('/users/signup', data);
+      insurance.dispatch(
+        loginUser({
+          token: response.data.token,
+          data: response.data.data,
+        })
+      );
+      return '/';
+    } catch (err) {
+      console.error(
+        err?.response?.data?.error?.message ||
+          err.message ||
+          'Unknown error, please try again.'
+      );
+      return null;
+    }
+  };
+};
 
 const Register = () => {
   const [pageCounter, setPageCounter] = useState(1);
-
   const [formData, setFormData] = useState({});
+  const [termsAccepted, setTermsAccepted] = useState(true);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleNextPage = () => {
-    if (pageCounter < 4) setPageCounter(pageCounter + 1);
+    if (pageCounter < 3) setPageCounter(pageCounter + 1);
   };
 
   const handlePrevPage = () => {
     if (pageCounter > 1) setPageCounter(pageCounter - 1);
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!termsAccepted) {
+      console.error('Please accept the terms and conditions.');
+      return;
+    }
+    console.log('Form submitted:', formData);
+  };
+
   return (
     <div className="relative">
       <div className="bg-non flex min-h-screen flex-col items-center justify-center px-3 py-12">
@@ -49,54 +90,51 @@ const Register = () => {
             </h1>
             <p className="mb-8 mt-4 text-left text-sm md:mb-10 md:mt-5 md:text-base">
               Already have an account?{' '}
-              <Link
-                to="/login"
-                className="text-primary underline hover:cursor-pointer"
-              >
+              <Link to="/login" className="text-primary underline hover:cursor-pointer">
                 Log in
               </Link>
             </p>
           </div>
 
-          <Form
-            method="POST"
-            noValidate
-            onSubmit={() => ''}
-            className="flex w-full flex-col space-y-4"
-          >
-            {INPUTS.map(({ page, name, Placeholder, type }, i) => {
-              return (
-                <Input
-                  key={i}
-                  Placeholder={Placeholder}
-                  Type={type}
-                  ClassName={`w-full ${page !== pageCounter ? 'hidden' : ''}`}
-                  Name={name}
-                />
-              );
-            })}
+          <Form method="POST" noValidate onSubmit={handleSubmit} className="flex w-full flex-col space-y-4">
+            <progress
+              className="progress progress-primary h-4 w-full bg-[#e8e8e8]"
+              value={(pageCounter - 1) * 33.33}
+              max="100"
+            ></progress>
+            {INPUTS.map(({ page, name, Placeholder, type }, i) => (
+              <Input
+                key={i}
+                Placeholder={Placeholder}
+                Type={type}
+                ClassName={`w-full ${page !== pageCounter ? 'hidden' : ''}`}
+                Name={name}
+                value={formData[name] || ''}
+                onChange={handleInputChange}
+              />
+            ))}
 
             <div className="flex items-center space-x-3">
               <input
                 type="checkbox"
-                defaultChecked
+                checked={termsAccepted}
+                onChange={(e) => setTermsAccepted(e.target.checked)}
                 className="checkbox h-4 w-4"
               />
               <p className="text-sm md:text-base">
                 I agree to the{' '}
-                <span className="text-primary underline">
-                  Terms & Conditions
-                </span>
+                <span className="text-primary underline">Terms & Conditions</span>
               </p>
             </div>
 
-            {pageCounter === 4 && (
-              <SubmitButton ClassName="flex justify-center w-full">
+            {pageCounter === 3 && (
+              <SubmitButton navigating={true} ClassName="flex justify-center w-full">
                 Create account
               </SubmitButton>
             )}
           </Form>
-          {pageCounter !== 4 && (
+
+          {pageCounter !== 3 && (
             <div className="flex gap-2">
               <ButtonOutline
                 className={`flex w-full justify-center ${pageCounter === 1 && 'btn-disabled text-[#e8e8e8]'}`}

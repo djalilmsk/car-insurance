@@ -2,15 +2,27 @@ import Logo from '../Logo';
 import NavLinks from './NavLinks';
 import { Button, ButtonOutline } from '../../ui';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutUser } from '../../features/user/UserSlice';
+import { FaUserCircle } from 'react-icons/fa';
 
 function NavBar() {
+  const dispatch = useDispatch();
+  const userObject = useSelector((state) => state.userReducer);
+  console.log(userObject);
+  const { data, token } = userObject.user || { data: null, token: null };
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
+
   return (
     <nav className="bg-white shadow-md">
       <div className="sm:align-element navbar">
         <div className="navbar-start">
-        <label
+          <label
             htmlFor="my-drawer"
-            className="drawer-button cursor-pointer px-4 py-2 bg-gray-200 rounded-full flex items-center gap-2 hover:bg-gray-300"
+            className="drawer-button flex cursor-pointer items-center gap-2 rounded-full bg-gray-200 px-4 py-2 hover:bg-gray-300"
           >
             <span>Menu =</span>
           </label>
@@ -20,13 +32,29 @@ function NavBar() {
           <Logo />
         </div>
 
-        <div className="flex items-center gap-4 min-w-52 navbar-end">
-          <Link to="/register">
-            <ButtonOutline className="px-4 py-2">Sign up</ButtonOutline>
-          </Link>
-          <Link to="/login">
-            <Button className="px-4 py-2">Login</Button>
-          </Link>
+        <div className="navbar-end flex min-w-52 items-center gap-4">
+          {token === null ? (
+            <>
+              <Link to="/register">
+                <ButtonOutline className="px-4 py-2">Sign up</ButtonOutline>
+              </Link>
+              <Link to="/login">
+                <Button className="px-4 py-2">Login</Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <span className="flex cursor-pointer items-center justify-center gap-2 rounded-full bg-[#e8e8e8] p-2 pr-3 text-[#787878] transition-all duration-300 hover:bg-secondary hover:text-primary">
+                <FaUserCircle className="h-5 w-5" /> {data.fullName}
+              </span>
+              <span
+                className="mr-4 cursor-pointer text-[#787878] transition-all duration-300 hover:text-primary hover:underline"
+                onClick={handleLogout}
+              >
+                Logout
+              </span>
+            </>
+          )}
         </div>
       </div>
 
