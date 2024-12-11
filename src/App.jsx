@@ -16,6 +16,7 @@ import {
 
 import { action as loginAction } from './pages/Login';
 import { action as registerAction } from './pages/Register';
+import { loader as companiesLoader } from './pages/Companies'
 import { insurance } from './insurance';
 
 import { ErrorElement } from './error';
@@ -50,6 +51,7 @@ const router = createBrowserRouter([
         path: 'companies',
         element: <Companies />,
         errorElement: <ErrorElement />,
+        loader: companiesLoader
       },
       {
         path: 'helpPage',
@@ -57,7 +59,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path: 'companies/insurerPage/:id',
+        path: 'companies/:id',
         element: <InsurerPage />,
         errorElement: <ErrorElement />,
       },

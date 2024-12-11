@@ -1,48 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useLoaderData } from 'react-router-dom';
+import InsurerCard from '../components/InsurerCard';
+import { Link, useLoaderData } from 'react-router-dom';
+import customFetch from '../utils';
+import { useEffect } from 'react';
 import { companies } from '../Services/companies';
 
-function InsurerCard(props) {
-  return (
-    <div className="flex flex-col items-center rounded-lg bg-white p-6 text-center shadow-md">
-      <img
-        src={props.company.image}
-        alt={props.company.name}
-        className="mb-4 h-16 w-16"
-      />
-      <h2 className="mb-2 text-lg font-semibold text-primary">
-        {props.company.name}
-      </h2>
-      <p className="mb-1 text-sm text-gray-600">
-        <strong>Email:</strong> {props.company.email}
-      </p>
-      <p className="mb-1 text-sm text-gray-600">
-        <strong>Address:</strong> {props.company.address}
-      </p>
-      <p className="text-sm text-gray-600">
-        <strong>Phone:</strong> {props.company.phone}
-      </p>
-      <div className="p-4">
-        <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-gray-300 px-4 py-2 font-semibold text-white transition duration-300 hover:bg-secondary">
-          <span className="text-primary">Our Plans</span>
-        </button>
-      </div>
-    </div>
-  );
+export async function loader() {
+  // const response = await customFetch.get('/insurer');
+  // console.log('eee');
+  // console.log(response);
+  // const data = response.json();
+  // console.log(data);
+  // return data;
+  return null;
 }
 
 const Companies = () => {
+  // console.log('eee');
+  // useEffect(() => {
+  //   fetch('https://5df1-41-111-178-9.ngrok-free.app/api/insurer')
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data))
+  //     .catch((err) => console.log(err));
+  // }, []);
+  // const companies = useLoaderData();
+  // console.log(companies);
+
   return (
     <>
       <div className="mb-[20px] text-center">
-        <h1 className="text-[38px] text-primary">Our Companies</h1>
+        <h1 className="text-4xl font-semibold uppercase">Our Companies</h1>
       </div>
-      <div className="bg-secondary p-4">
+      <div className="p-4">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {companies.map((company) => (
-              <InsurerCard key={company.id} company={company}></InsurerCard>
+              <Link to={`/companies/${company.id}?id=${company.id}`} key={company.id}>
+                <InsurerCard company={company} />
+              </Link>
             ))}
           </div>
         </div>

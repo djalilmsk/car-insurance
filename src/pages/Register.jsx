@@ -7,7 +7,8 @@ import customFetch from '../utils';
 
 // const [searchParams] = useSearchParams();
 // const role = searchParams.get('role') || 'users';
-const URL = `/${'user'}/signup`;
+
+const URL = `/${'users'}/signup`;
 
 const INPUTS = [
   { page: 1, name: 'fullName', Placeholder: 'Full name', type: 'text' },

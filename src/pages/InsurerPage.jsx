@@ -4,6 +4,8 @@ import { PricingCard } from '../components';
 import { SiTheboringcompany } from 'react-icons/si';
 import { GoPlusCircle } from 'react-icons/go';
 import { Button } from '../ui';
+import { companies } from '../Services/companies';
+import { useSearchParams } from 'react-router-dom';
 
 const INITIAL_INFOS = [
   {
@@ -44,7 +46,10 @@ const INITIAL_INFOS = [
 
 function Field(props) {
   return (
-    <form onSubmit={props.handleFormSubmit} className="mb-6 rounded-2xl border p-4 shadow">
+    <form
+      onSubmit={props.handleFormSubmit}
+      className="mb-6 rounded-2xl border p-4 shadow"
+    >
       <div className="grid gap-4">
         <input
           type="text"
@@ -52,7 +57,7 @@ function Field(props) {
           placeholder="Plan Name"
           value={props.newPlan.name}
           onChange={props.handleFormChange}
-          className="rounded-lg border p-2 focus:ring-2 focus:ring-primary focus:outline-none"
+          className="rounded-lg border p-2 focus:outline-none focus:ring-2 focus:ring-primary"
           required
         />
         <textarea
@@ -60,7 +65,7 @@ function Field(props) {
           placeholder="Description"
           value={props.newPlan.description}
           onChange={props.handleFormChange}
-          className="rounded-lg border p-2 focus:ring-2 focus:ring-primary focus:outline-none"
+          className="rounded-lg border p-2 focus:outline-none focus:ring-2 focus:ring-primary"
           required
         />
         <input
@@ -69,7 +74,7 @@ function Field(props) {
           placeholder="Coverage (comma-separated)"
           value={props.newPlan.coverage}
           onChange={props.handleFormChange}
-          className="rounded-lg border p-2 focus:ring-2 focus:ring-primary focus:outline-none"
+          className="rounded-lg border p-2 focus:outline-none focus:ring-2 focus:ring-primary"
           required
         />
         <input
@@ -78,7 +83,7 @@ function Field(props) {
           placeholder="Price"
           value={props.newPlan.price}
           onChange={props.handleFormChange}
-          className="rounded-lg border p-2 focus:ring-2 focus:ring-primary focus:outline-none"
+          className="rounded-lg border p-2 focus:outline-none focus:ring-2 focus:ring-primary"
           required
         />
         <input
@@ -87,7 +92,7 @@ function Field(props) {
           placeholder="Deductible"
           value={props.newPlan.deductible}
           onChange={props.handleFormChange}
-          className="rounded-lg border p-2 focus:ring-2 focus:ring-primary focus:outline-none"
+          className="rounded-lg border p-2 focus:outline-none focus:ring-2 focus:ring-primary"
           required
         />
         <textarea
@@ -95,14 +100,11 @@ function Field(props) {
           placeholder="Terms"
           value={props.newPlan.terms}
           onChange={props.handleFormChange}
-          className="rounded-lg border p-2 focus:ring-1 focus:ring-primary focus:outline-none"
+          className="rounded-lg border p-2 focus:outline-none focus:ring-1 focus:ring-primary"
           required
         />
 
-        <Button
-          type="submit"
-          className={'flex justify-center items-center'}
-        >
+        <Button type="submit" className={'flex items-center justify-center'}>
           Add Plan
         </Button>
       </div>
@@ -122,6 +124,13 @@ function InsurerPage() {
     terms: '',
     isActive: true,
   });
+  const [searchParams] = useSearchParams();
+  const pageId = searchParams.get('id');
+  const company = companies.find(company => company.id === parseInt(pageId));
+
+  if (!company) {
+    return <div>Company not found</div>;
+  }
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -153,13 +162,14 @@ function InsurerPage() {
   return (
     <div className="p-4">
       <div className="mb-10 flex flex-wrap justify-between gap-6">
-        <div className="flex items-center gap-4">
-          <SiTheboringcompany className="h-16 w-16 rounded" />
+        <div className="flex h-20 w-20 items-center gap-4 rounded">
+          {company.image && <img src={company.image} alt={`${company.name} logo`} />}
+          {/* <SiTheboringcompany className="h-16 w-16 rounded" /> */}
           <div className="flex flex-col">
-            <span className="text-xl font-semibold md:text-2xl">
-              name company
+            <span className="text-xl font-semibold md:text-2xl md:w-40 lg:w-96">
+              {company.name}
             </span>
-            <span className="text-sm text-[#787878]">
+            <span className="text-xs text-[#787878]">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
             </span>
           </div>
@@ -177,7 +187,9 @@ function InsurerPage() {
               className="flex items-center gap-3 py-5 pl-3 transition-all duration-300 hover:text-[#787878] max-sm:px-4"
               onClick={() => setShowForm(!showForm)}
             >
-              <GoPlusCircle className={`h-6 w-6 text-[#787878] ${showForm ? 'rotate-45 transition-all duration-300': ''}`} />
+              <GoPlusCircle
+                className={`h-6 w-6 text-[#787878] ${showForm ? 'rotate-45 transition-all duration-300' : ''}`}
+              />
               <span className="max-sm:hidden">
                 {showForm ? 'Close Form' : 'Add New Plan'}
               </span>
@@ -192,6 +204,9 @@ function InsurerPage() {
           handleFormSubmit={handleFormSubmit}
         ></Field>
       )}
+      {infos.filter(plan => plan.isActive).length === 0 && (
+        <div>No active plans available. Please add a new plan.</div>
+      )}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {infos.map(
           (
@@ -201,7 +216,7 @@ function InsurerPage() {
             if (!isActive) return null;
             return (
               <PricingCard
-                key={i}
+                key={`${name}-${i}`}
                 title={name}
                 plans={coverage}
                 price={price}
