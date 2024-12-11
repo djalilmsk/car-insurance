@@ -14,6 +14,8 @@ import {
 } from './pages';
 
 import { action as loginAction } from './pages/Login';
+import { action as registerAction } from './pages/Register';
+import { insurance } from './insurance';
 
 import { ErrorElement } from './error';
 const router = createBrowserRouter([
@@ -58,12 +60,17 @@ const router = createBrowserRouter([
     path: 'login',
     element: <Login />,
     errorElement: <Error />,
+<<<<<<< HEAD
     action: loginAction(),
+=======
+    action: loginAction(insurance),
+>>>>>>> d9f6fb3acc24b7ef2774988a5f8352bc34bca712
   },
   {
     path: 'register',
     element: <Register />,
     errorElement: <Error />,
+    action: registerAction(insurance),
   },
 ]);
 
