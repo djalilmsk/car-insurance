@@ -46,13 +46,8 @@ function NavBar() {
           {token === null ? (
             <>
               <button
-<<<<<<< HEAD
-                onClick={handleSignUpClick} // Open RoleChoose on Sign Up click
-                className="text-[#787878]hover:border-[#e8e8e8] rounded-full border-2 border-[#e8e8e8] px-4 py-[.4rem] transition-all duration-300 hover:bg-[#e8e8e8]"
-=======
                 onClick={handleSignUpClick}
-                className="px-4 py-[.4rem] border-2 rounded-full border-[#e8e8e8] text-[#787878]hover:border-[#e8e8e8]  hover:bg-[#e8e8e8] transition-all duration-300"
->>>>>>> 1caa6449b7dadc0692fb97a2dfdee4498806d8d2
+                className="text-[#787878]hover:border-[#e8e8e8] rounded-full border-2 border-[#e8e8e8] px-4 py-[.4rem] transition-all duration-300 hover:bg-[#e8e8e8]"
               >
                 Sign up
               </button>
@@ -62,9 +57,9 @@ function NavBar() {
             </>
           ) : (
             <>
-              <span className="flex cursor-pointer items-center justify-center gap-2 rounded-full bg-[#e8e8e8] p-2 pr-3 text-[#787878] transition-all duration-300 hover:bg-secondary hover:text-primary">
+              <Link to={'/dashboard'} className="flex cursor-pointer items-center justify-center gap-2 rounded-full bg-[#e8e8e8] p-2 pr-3 text-[#787878] transition-all duration-300 hover:bg-secondary hover:text-primary">
                 <FaUserCircle className="h-5 w-5" /> {data.fullName}
-              </span>
+              </Link>
               <span
                 className="mr-4 cursor-pointer text-[#787878] transition-all duration-300 hover:text-primary hover:underline"
                 onClick={handleLogout}

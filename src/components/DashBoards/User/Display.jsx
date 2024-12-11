@@ -5,18 +5,29 @@ export default function UserInfo({ user }) {
         Your Information :
       </h2>
       <div className="space-y-4">
-        <div>
-          <span className="font-medium text-primary">Name:</span> {user.name}
+        <div className="flex justify-between">
+          <span className=" font-medium uppercase text-primary">
+            Name :
+          </span>{' '}
+          {user.fullName}
         </div>
-        <div>
-          <span className="font-medium text-primary">Last Name:</span>{' '}
-          {user.lastName}
+        <div className="flex justify-between">
+          <span className="font-medium uppercase text-primary">
+            Phone :
+          </span>{' '}
+          {user.phone}
         </div>
-        <div>
-          <span className="font-medium text-primary">Phone:</span> {user.phone}
+        <div className="flex justify-between">
+          <span className="font-medium uppercase text-primary">
+            Email :{' '}
+          </span>{' '}
+          {user.email}
         </div>
-        <div>
-          <span className="font-medium text-primary">Email:</span> {user.email}
+        <div className="flex justify-between">
+          <span className="font-medium uppercase text-primary">
+            Address :
+          </span>{' '}
+          {user.address}
         </div>
       </div>
     </div>

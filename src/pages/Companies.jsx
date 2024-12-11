@@ -6,10 +6,8 @@ import { companies } from '../Services/companies';
 
 export async function loader() {
   // const response = await customFetch.get('/insurer');
-  // console.log('eee');
   // console.log(response);
   // const data = response.json();
-  // console.log(data);
   // return data;
   return null;
 }
