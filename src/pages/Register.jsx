@@ -4,51 +4,69 @@ import { Form, Link } from 'react-router-dom';
 import { EyeToggle, SubmitButton, Input, Button, ButtonOutline } from '../ui';
 import { loginUser } from '../features/user/UserSlice';
 import { insurance } from '../insurance';
+import customFetch from '../utils';
 
 const INPUTS = [
   { page: 1, name: 'fullName', Placeholder: 'Full name', type: 'text' },
   { page: 1, name: 'address', Placeholder: 'Physical address', type: 'text' },
   { page: 1, name: 'email', Placeholder: 'Email', type: 'email' },
   { page: 1, name: 'phone', Placeholder: 'Phone', type: 'tel' },
-  { page: 2, name: 'meterReading', Placeholder: 'Meter reading', type: 'number' },
+  {
+    page: 2,
+    name: 'meterReading',
+    Placeholder: 'Meter reading',
+    type: 'number',
+  },
   { page: 2, name: 'PDL_PCE', Placeholder: 'PCE / PDL', type: 'number' },
-  { page: 2, name: 'type', Placeholder: 'Housing Type (e.g., apartment)', type: 'text' },
+  {
+    page: 2,
+    name: 'type',
+    Placeholder: 'Housing Type (e.g., apartment)',
+    type: 'text',
+  },
   { page: 2, name: 'area', Placeholder: 'Housing Area', type: 'number' },
-  { page: 3, name: 'postalAddress', Placeholder: 'Postal Address', type: 'text' },
+  {
+    page: 3,
+    name: 'postalAddress',
+    Placeholder: 'Postal Address',
+    type: 'text',
+  },
   { page: 3, name: 'RIB', Placeholder: 'RIB', type: 'text' },
   { page: 3, name: 'password', Placeholder: 'Password', type: 'password' },
-  { page: 3, name: 'confirmPassword', Placeholder: 'Confirm Password', type: 'password' },
+  {
+    page: 3,
+    name: 'comfirmPassword',
+    Placeholder: 'Confirm Password',
+    type: 'password',
+  },
 ];
 
-const action = (insurance) => {
-  return async ({ request }) => {
+export const action = (insurance) => 
+  async ({ request }) => {
     try {
       const formData = await request.formData();
       const data = Object.fromEntries(formData);
 
-      if (data.password !== data.confirmPassword) {
-        console.error('Passwords do not match');
-        return null;
-      }
+      console.log(data);
 
       const response = await customFetch.post('/users/signup', data);
       insurance.dispatch(
         loginUser({
           token: response.data.token,
           data: response.data.data,
-        })
+        }),
       );
       return '/';
     } catch (err) {
       console.error(
         err?.response?.data?.error?.message ||
           err.message ||
-          'Unknown error, please try again.'
+          'Unknown error, please try again.',
       );
       return null;
     }
   };
-};
+
 
 const Register = () => {
   const [pageCounter, setPageCounter] = useState(1);
@@ -90,13 +108,20 @@ const Register = () => {
             </h1>
             <p className="mb-8 mt-4 text-left text-sm md:mb-10 md:mt-5 md:text-base">
               Already have an account?{' '}
-              <Link to="/login" className="text-primary underline hover:cursor-pointer">
+              <Link
+                to="/login"
+                className="text-primary underline hover:cursor-pointer"
+              >
                 Log in
               </Link>
             </p>
           </div>
 
-          <Form method="POST" noValidate onSubmit={handleSubmit} className="flex w-full flex-col space-y-4">
+          <Form
+            method="POST"
+            noValidate
+            className="flex w-full flex-col space-y-4"
+          >
             <progress
               className="progress progress-primary h-4 w-full bg-[#e8e8e8]"
               value={(pageCounter - 1) * 33.33}
@@ -123,12 +148,17 @@ const Register = () => {
               />
               <p className="text-sm md:text-base">
                 I agree to the{' '}
-                <span className="text-primary underline">Terms & Conditions</span>
+                <span className="text-primary underline">
+                  Terms & Conditions
+                </span>
               </p>
             </div>
 
             {pageCounter === 3 && (
-              <SubmitButton navigating={true} ClassName="flex justify-center w-full">
+              <SubmitButton
+                navigating={true}
+                ClassName="flex justify-center w-full"
+              >
                 Create account
               </SubmitButton>
             )}

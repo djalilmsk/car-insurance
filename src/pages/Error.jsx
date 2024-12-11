@@ -4,6 +4,8 @@ function Error() {
   const error = useRouteError();
   const navigate = useNavigate();
 
+  console.log(error);
+
   const errorStatus = error?.status === 404 ? error.status : "Unknown Error";
   const errorMessage =
     error?.status === 404
