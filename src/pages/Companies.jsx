@@ -16,12 +16,12 @@ export async function loader() {
 
 const Companies = () => {
   // console.log('eee');
-  useEffect(() => {
-    fetch('https://5df1-41-111-178-9.ngrok-free.app/api/insurer')
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   fetch('https://5df1-41-111-178-9.ngrok-free.app/api/insurer')
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data))
+  //     .catch((err) => console.log(err));
+  // }, []);
   // const companies = useLoaderData();
   // console.log(companies);
 
