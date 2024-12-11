@@ -3,51 +3,30 @@ import { Logo } from '../components';
 import { Form, Link, useSearchParams } from 'react-router-dom';
 import { EyeToggle, SubmitButton, Input, Button, ButtonOutline } from '../ui';
 import { loginUser } from '../features/user/UserSlice';
-import { insurance } from '../insurance';
 import customFetch from '../utils';
 
 const [searchParams] = useSearchParams();
 const role = searchParams.get('role') || 'users';
-const URL = `/${role}/signup`
+const URL = `/${role}/signup`;
 
 const INPUTS = [
   { page: 1, name: 'fullName', Placeholder: 'Full name', type: 'text' },
   { page: 1, name: 'address', Placeholder: 'Physical address', type: 'text' },
   { page: 1, name: 'email', Placeholder: 'Email', type: 'email' },
   { page: 1, name: 'phone', Placeholder: 'Phone', type: 'tel' },
-  {
-    page: 2,
-    name: 'meterReading',
-    Placeholder: 'Meter reading',
-    type: 'number',
-  },
+  { page: 2, name: 'meterReading', Placeholder: 'Meter reading', type: 'number' },
   { page: 2, name: 'PDL_PCE', Placeholder: 'PCE / PDL', type: 'number' },
-  {
-    page: 2,
-    name: 'type',
-    Placeholder: 'Housing Type (e.g., apartment)',
-    type: 'text',
-  },
+  { page: 2, name: 'type', Placeholder: 'Housing Type (e.g., apartment)', type: 'text' },
   { page: 2, name: 'area', Placeholder: 'Housing Area', type: 'number' },
-  {
-    page: 3,
-    name: 'postalAddress',
-    Placeholder: 'Postal Address',
-    type: 'text',
-  },
+  { page: 3, name: 'postalAddress', Placeholder: 'Postal Address', type: 'text' },
   { page: 3, name: 'RIB', Placeholder: 'RIB', type: 'text' },
   { page: 3, name: 'password', Placeholder: 'Password', type: 'password' },
-  {
-    page: 3,
-    name: 'comfirmPassword',
-    Placeholder: 'Confirm Password',
-    type: 'password',
-  },
+  { page: 3, name: 'comfirmPassword', Placeholder: 'Confirm Password', type: 'password' },
 ];
 
-export const action = (insurance) => 
+export const action =
+  (insurance) =>
   async ({ request }) => {
-
     try {
       const formData = await request.formData();
       const data = Object.fromEntries(formData);
@@ -72,12 +51,10 @@ export const action = (insurance) =>
     }
   };
 
-
 const Register = () => {
   const [pageCounter, setPageCounter] = useState(1);
   const [formData, setFormData] = useState({});
   const [termsAccepted, setTermsAccepted] = useState(true);
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

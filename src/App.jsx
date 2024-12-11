@@ -60,11 +60,7 @@ const router = createBrowserRouter([
     path: 'login',
     element: <Login />,
     errorElement: <Error />,
-<<<<<<< HEAD
-    action: loginAction(),
-=======
     action: loginAction(insurance),
->>>>>>> d9f6fb3acc24b7ef2774988a5f8352bc34bca712
   },
   {
     path: 'register',
