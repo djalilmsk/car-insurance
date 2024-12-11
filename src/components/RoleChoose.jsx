@@ -1,23 +1,32 @@
-import { div } from 'framer-motion/client';
+import { useState } from 'react';
 import { Button, DeleteButton } from '../ui';
 import { FaUser } from 'react-icons/fa';
 import { RiBuilding2Fill } from 'react-icons/ri';
 import { GrUserWorker } from 'react-icons/gr';
+import { Form, Link, Links } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 function RoleChoose({ className, onClick }) {
+  const [selectedRole, setSelectedRole] = useState('users');
+
+  const handleRoleChange = (event) => {
+    setSelectedRole(event.target.value); 
+  };
+
   return (
     <div className={`${className} rounded-xl bg-white p-6 shadow-lg`}>
       <h3 className="mb-6 text-left text-lg font-semibold text-gray-600">
         Register as:
       </h3>
-      <div className="grid grid-cols-3 gap-4">
+      <Form className="grid grid-cols-3 gap-4">
         <span className="flex h-20 cursor-pointer items-center justify-center">
           <input
             type="radio"
             id="role-user"
             name="role"
             value="users"
-            defaultChecked
+            checked={selectedRole === 'users'}
+            onChange={handleRoleChange} // Handle role change
             className="peer hidden"
           />
           <label
@@ -36,6 +45,8 @@ function RoleChoose({ className, onClick }) {
             id="role-company"
             name="role"
             value="insurer"
+            checked={selectedRole === 'insurer'}
+            onChange={handleRoleChange} // Handle role change
             className="peer hidden"
           />
           <label
@@ -54,6 +65,8 @@ function RoleChoose({ className, onClick }) {
             id="role-expert"
             name="role"
             value="experts"
+            checked={selectedRole === 'experts'}
+            onChange={handleRoleChange} // Handle role change
             className="peer hidden"
           />
           <label
@@ -66,15 +79,24 @@ function RoleChoose({ className, onClick }) {
             <span>Expert</span>
           </label>
         </span>
-      </div>
-      <div className="mt-6 flex justify-end gap-4">
-        <DeleteButton clickHandle={onClick} className="flex w-32 justify-center rounded-lg py-2 transition-all duration-200">
+
+        <span></span>
+
+        <DeleteButton
+          clickHandle={onClick}
+          className="flex w-32 justify-center rounded-lg py-2 transition-all duration-200"
+        >
           Cancel
         </DeleteButton>
-        <Button className="flex w-32 justify-center rounded-lg py-2 transition-all duration-200">
-          Continue
-        </Button>
-      </div>
+        <Link to={`/register?role=${selectedRole}`}>
+          <Button
+            type="button"
+            className="flex w-32 justify-center rounded-lg py-2 transition-all duration-200"
+          >
+            Continue
+          </Button>
+        </Link>
+      </Form>
     </div>
   );
 }

@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { Logo } from '../components';
-import { Form, Link } from 'react-router-dom';
+import { Form, Link, useSearchParams } from 'react-router-dom';
 import { EyeToggle, SubmitButton, Input, Button, ButtonOutline } from '../ui';
 import { loginUser } from '../features/user/UserSlice';
 import { insurance } from '../insurance';
 import customFetch from '../utils';
+
+const [searchParams] = useSearchParams();
+const role = searchParams.get('role') || 'users';
+const URL = `/${role}/signup`
 
 const INPUTS = [
   { page: 1, name: 'fullName', Placeholder: 'Full name', type: 'text' },
@@ -43,13 +47,14 @@ const INPUTS = [
 
 export const action = (insurance) => 
   async ({ request }) => {
+
     try {
       const formData = await request.formData();
       const data = Object.fromEntries(formData);
 
-      console.log(data);
+      console.log(data, 'the url is:' + URL);
 
-      const response = await customFetch.post('/users/signup', data);
+      const response = await customFetch.post(URL, data);
       insurance.dispatch(
         loginUser({
           token: response.data.token,
@@ -72,6 +77,7 @@ const Register = () => {
   const [pageCounter, setPageCounter] = useState(1);
   const [formData, setFormData] = useState({});
   const [termsAccepted, setTermsAccepted] = useState(true);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
