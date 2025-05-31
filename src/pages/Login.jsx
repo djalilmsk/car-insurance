@@ -11,24 +11,17 @@ export const action =
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
 
-    try {
-      const response = await customFetch.post('/users/login', data);
-      insurance.dispatch(
-        loginUser({
-          token: response.data.token,
-          data: response.data.data,
-        }),
-      );
-      return ('/');
-    } catch (error) {
-      const errorMessage =
-        error?.response?.data?.error?.message ||
-        'Please double-check your credentials';
-      console.log(error);
-      console.error('Login Error:', errorMessage);
-      return errorMessage;
-    }
+    return {
+      email: 'johndoe@example.com',
+      fullName: 'John Doe',
+      image: 'https://example.com/images/john.jpg',
+      _id: 'dddd'
+    };
   };
+
+export async function loader() {
+  return;
+}
 
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -81,7 +74,9 @@ const Login = () => {
             <p className="text-sm md:text-base">Remember me</p>
           </div>
 
-          <SubmitButton ClassName="flex justify-center" navigating={true}>Login</SubmitButton>
+          <SubmitButton ClassName="flex justify-center" navigating={true}>
+            Login
+          </SubmitButton>
         </Form>
       </div>
     </div>

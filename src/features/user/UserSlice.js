@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initial = {
-  token:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTg2MzUzMTczMDY4NzgzNDA5YmZiYSIsImlhdCI6MTczMzg2NTMxNSwiZXhwIjoxNzM2NDU3MzE1fQ.fTv9jwhDqY32TXcopxPT-eFj97TSvgC8oQLkGJnI7xo',
+  token: 'eyJh',
   data: {
     id: '67586353173068783409bfba',
     fullName: 'John Doe',

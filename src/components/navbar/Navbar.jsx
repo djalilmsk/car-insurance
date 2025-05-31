@@ -58,7 +58,7 @@ function NavBar() {
           ) : (
             <>
               <Link to={'/dashboard'} className="flex cursor-pointer items-center justify-center gap-2 rounded-full bg-[#e8e8e8] p-2 pr-3 text-[#787878] transition-all duration-300 hover:bg-secondary hover:text-primary">
-                <FaUserCircle className="h-5 w-5" /> {data.fullName}
+                <FaUserCircle className="h-5 w-5" /> {data?.fullName}
               </Link>
               <span
                 className="mr-4 cursor-pointer text-[#787878] transition-all duration-300 hover:text-primary hover:underline"

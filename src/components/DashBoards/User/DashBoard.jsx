@@ -5,7 +5,7 @@ import UserEditForm from './IditInfo';
 
 function PlanDetails({ plans }) {
   return (
-    <div className="rounded-md bg-white p-6 shadow-md">
+    <div className="rounded-md bg-white p-6 shadow-md sm:w-[800px]">
       <h2 className="mb-4 text-2xl font-semibold">Plan Details</h2>
       {plans.length > 0 ? (
         plans.map((plan, index) => (
